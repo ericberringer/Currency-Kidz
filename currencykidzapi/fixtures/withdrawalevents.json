@@ -1,0 +1,14 @@
+[
+    {
+        "model": "currencykidzapi.withdrawalevent",
+        "pk": 1,
+        "fields": {
+            "date": "2021-6-8",
+            "name": "Withdrawal 1",
+            "saver": 1,
+            "currency": 1,
+            "total": 1.00,
+            "sound_effect": []
+        }
+    }
+]

@@ -1,0 +1,14 @@
+[
+    {
+        "model": "currencykidzapi.depositevent",
+        "pk": 1,
+        "fields": {
+            "date": "2021-6-9",
+            "name": "Deposit 1",
+            "saver": 1,
+            "currency": 1,
+            "total": 3.00,
+            "sound_effect": []
+        }
+    }
+]

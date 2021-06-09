@@ -1,0 +1,18 @@
+[
+    {
+        "model": "currencykidzapi.currency",
+        "pk": 1,
+        "fields": {
+            "quarter": 0.25,
+            "dime": 0.10,
+            "nickel": 0.05,
+            "penny": 0.01,
+            "one_dollar": 1,
+            "five_dollars": 5,
+            "ten_dollars": 10,
+            "twenty_dollars": 20,
+            "fifty_dollars": 50,
+            "one_hundred_dollars": 100
+        }
+    }
+]
