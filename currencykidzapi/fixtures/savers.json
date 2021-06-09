@@ -1,6 +1,6 @@
 [
     {
-        "model": "currencykidz.saver",
+        "model": "currencykidzapi.saver",
         "pk": 1,
         "fields": {
             "user": 1,
