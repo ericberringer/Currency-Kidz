@@ -1,0 +1,29 @@
+[
+    {
+        "model": "currencykidzapi.question",
+        "pk": 1,
+        "fields": {
+            "question": "How much is a quarter worth",
+            "answer": "25 cents",
+            "quiz": 1
+        }
+    },
+    {
+        "model": "currencykidzapi.question",
+        "pk": 2,
+        "fields": {
+            "question": "Who is on the $1 bill?",
+            "answer": "George Washington",
+            "quiz": 1
+        }
+    },
+    {
+        "model": "currencykidzapi.question",
+        "pk": 3,
+        "fields": {
+            "question": "How much is a nickel worth?",
+            "answer": "5 cents",
+            "quiz": 1
+        }
+    }
+]

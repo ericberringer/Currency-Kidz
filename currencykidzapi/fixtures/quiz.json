@@ -1,0 +1,11 @@
+[
+    {
+        "model": "currencykidzapi.quiz",
+        "pk": 1,
+        "fields": {
+            "name": "Master Your Moola",
+            "quiz_image": 1,
+            "saver": 1
+        }
+    }
+]

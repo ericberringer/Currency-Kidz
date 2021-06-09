@@ -1,0 +1,10 @@
+[
+    {
+        "model": "currencykidzapi.quizimages",
+        "pk": 1,
+        "fields": {
+            "correct_answer": "https://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/thumbs-up.png",
+            "incorrect_answer": "https://cliparts.zone/img/1575666.jpg"   
+        }
+    }
+]
