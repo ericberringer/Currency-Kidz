@@ -4,13 +4,14 @@ from django.conf.urls import include
 from django.urls import path
 from django.contrib import admin
 from currencykidzapi.views import register_user, login_user
-from currencykidzapi.views import CurrencyView, DepositEventView, WithdrawalEventView
+from currencykidzapi.views import CurrencyView, DepositEventView, WithdrawalEventView, ProfileView
 
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'currency', CurrencyView, 'currency')
 router.register(r'deposit_event', DepositEventView, 'deposit_events')
 router.register(r'withdrawal_event', WithdrawalEventView, 'withdrawal_events')
+router.register(r'profile', ProfileView, 'profile')
 
 
 urlpatterns = [
