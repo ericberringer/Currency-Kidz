@@ -1,1 +1,1 @@
-select * from currencykidzapi_currency
+select * from auth_user
