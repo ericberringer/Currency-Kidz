@@ -6,7 +6,8 @@ from rest_framework.decorators import action
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
-from currencykidzapi.models import DepositEvent, Saver, Currency, saver
+from currencykidzapi.models import DepositEvent, Saver, Currency
+from datetime import date
 
 class DepositEventView(ViewSet):
 
@@ -16,14 +17,15 @@ class DepositEventView(ViewSet):
         Returns:
             Response -- JSON serialized deposit_event instance
         """
+        saver = Saver.objects.get(request.auth.user)
+
         deposit_event = DepositEvent()
         deposit_event.name = request.data["name"]
         deposit_event.total = request.data["total"]
         deposit_event.date = request.data["date"]
         deposit_event.sound_effect = request.data["sound_effect"]
-
-        saver = Saver.objects.get(pk=request.data['saver'])
         deposit_event.saver = saver
+
 
         currency = Currency.objects.get(pk=request.data["currency"])
         deposit_event.currency = currency
@@ -36,14 +38,11 @@ class DepositEventView(ViewSet):
             return Response({"reason": ex.message}, status=status.HTTP_400_BAD_REQUEST)
 
     def retrieve(self, request, pk=None):
-        """Handle GET requests for single event
+        """Handle GET requests for single deposit_event """
 
-        Returns:
-            Response -- JSON serialized game instance
-        """
         try:
-            event = Event.objects.get(pk=pk)
-            serializer = EventSerializer(event, context={'request': request})
+            deposit_event = DepositEvent.objects.get(pk=pk)
+            serializer = DepositEventSerializer(deposit_event, context={'request': request})
             return Response(serializer.data)
         except Exception:
             return HttpResponseServerError(ex)
@@ -125,4 +124,6 @@ class DepositEventSerializer(serializers.ModelSerializer):
     class Meta:
         model = DepositEvent
         fields = ('id', 'saver', 'name', 'date', 'saver', 'currency', 'total', 'sound_effect')
-
+        depth = 1
+        # depth indicates the depth of relationships that should be traversed
+        # before reverting to a flat representation
