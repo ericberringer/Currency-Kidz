@@ -47,25 +47,20 @@ class WithdrawalEventView(ViewSet):
             return HttpResponseServerError(ex)
 
     def update(self, request, pk=None):
-        """Handle PUT requests for an event
+        """Handle PUT requests for a  withdrawal_event
 
         Returns:
             Response -- Empty body with 204 status code
         """
-        organizer = Gamer.objects.get(user=request.auth.user)
+        saver = Saver.objects.get(user=request.auth.user)
 
-        event = Event.objects.get(pk=pk)
-        event.event_name = request.data["eventName"]
-        event.description = request.data["description"]
-        event.date = request.data["date"]
-        event.game = request.data["gameId"]
-        event.time = request.data["time"]
-        event.attendees = request.data["attendees"]
-        event.organizer = organizer
+        withdrawal_event = WithdrawalEvent.objects.get(pk=pk)
+        withdrawal_event.name = request.data["name"]
+        withdrawal_event.total = request.data["total"]
+        withdrawal_event.date = request.data["date"]
+        withdrawal_event.saver = saver
 
-        game = Game.objects.get(pk=request.data["gameId"])
-        event.game = game
-        event.save()
+        withdrawal_event.save()
 
         return Response({}, status=status.HTTP_204_NO_CONTENT)
 

@@ -49,25 +49,20 @@ class DepositEventView(ViewSet):
             return HttpResponseServerError(ex)
 
     def update(self, request, pk=None):
-        """Handle PUT requests for an event
+        """Handle PUT requests for a deposit_event
 
         Returns:
             Response -- Empty body with 204 status code
         """
-        organizerdeposit_eventr.objects.get(user=request.auth.user)
+        saver = Saver.objects.get(user=request.auth.user)
 
-        event = Event.objects.get(pk=pk)
-        event.event_name = request.data["eventName"]
-        event.description = request.data["description"]
-        event.date = request.data["date"]
-        event.game = request.data["gameId"]
-        event.time = request.data["time"]
-        event.attendees = request.data["attendees"]
-        event.organizer = organizer
+        deposit_event = DepositEvent.objects.get(pk=pk)
+        deposit_event.name = request.data["name"]
+        deposit_event.total = request.data["total"]
+        deposit_event.date = request.data["date"]
+        deposit_event.saver = saver
 
-        game = Game.objects.get(pk=request.data["gameId"])
-        event.game = game
-        event.save()
+        deposit_event.save()
 
         return Response({}, status=status.HTTP_204_NO_CONTENT)
 
