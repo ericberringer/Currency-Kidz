@@ -18,6 +18,7 @@ class DepositEventView(ViewSet):
             Response -- JSON serialized deposit_event instance
         """
         saver = Saver.objects.get(user=request.auth.user)
+        # user=request.auth.user is basically a WHERE in sql
 
         deposit_event = DepositEvent()
         deposit_event.name = request.data["name"]
@@ -53,7 +54,7 @@ class DepositEventView(ViewSet):
         Returns:
             Response -- Empty body with 204 status code
         """
-        organizer = Gamer.objects.get(user=request.auth.user)
+        organizerdeposit_eventr.objects.get(user=request.auth.user)
 
         event = Event.objects.get(pk=pk)
         event.event_name = request.data["eventName"]
@@ -71,18 +72,18 @@ class DepositEventView(ViewSet):
         return Response({}, status=status.HTTP_204_NO_CONTENT)
 
     def destroy(self, request, pk=None):
-        """Handle DELETE requests for a single game
+        """Handle DELETE requests for a single deposit_event
 
         Returns:
             Response -- 200, 404, or 500 status code
         """
         try:
-            event = Event.objects.get(pk=pk)
-            event.delete()
+            deposit_event = DepositEvent.objects.get(pk=pk)
+            deposit_event.delete()
 
             return Response({}, status=status.HTTP_204_NO_CONTENT)
 
-        except Event.DoesNotExist as ex:
+        except DepositEvent.DoesNotExist as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
 
         except Exception as ex:

@@ -17,6 +17,7 @@ class WithdrawalEventView(ViewSet):
             Response -- JSON serialized withdrawal_event instance
         """
         saver = Saver.objects.get(user=request.auth.user)
+        # user=request.auth.user is basically a WHERE in sql
 
         withdrawal_event = WithdrawalEvent()
         withdrawal_event.name = request.data["name"]
@@ -73,18 +74,18 @@ class WithdrawalEventView(ViewSet):
         return Response({}, status=status.HTTP_204_NO_CONTENT)
 
     def destroy(self, request, pk=None):
-        """Handle DELETE requests for a single game
+        """Handle DELETE requests for a single withdrawal_event
 
         Returns:
             Response -- 200, 404, or 500 status code
         """
         try:
-            event = Event.objects.get(pk=pk)
-            event.delete()
+            withdrawal_event = WithdrawalEvent.objects.get(pk=pk)
+            withdrawal_event.delete()
 
             return Response({}, status=status.HTTP_204_NO_CONTENT)
 
-        except Event.DoesNotExist as ex:
+        except WithdrawalEvent.DoesNotExist as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
 
         except Exception as ex:
