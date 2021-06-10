@@ -17,7 +17,7 @@ class DepositEventView(ViewSet):
         Returns:
             Response -- JSON serialized deposit_event instance
         """
-        saver = Saver.objects.get(request.auth.user)
+        saver = Saver.objects.get(user=request.auth.user)
 
         deposit_event = DepositEvent()
         deposit_event.name = request.data["name"]
@@ -123,7 +123,7 @@ class DepositEventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = DepositEvent
-        fields = ('id', 'saver', 'name', 'date', 'saver', 'currency', 'total', 'sound_effect')
+        fields = ('id', 'saver', 'name', 'date', 'currency', 'total', 'sound_effect')
         depth = 1
         # depth indicates the depth of relationships that should be traversed
         # before reverting to a flat representation
