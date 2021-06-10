@@ -6,20 +6,6 @@ from currencykidzapi.models import Currency
 
 
 class CurrencyView(ViewSet):
-    
-    def retrieve(self, request, pk):
-        """Handle GET requests for single currency
-
-        Returns:
-            Response -- JSON serialized currency
-        """
-        try:
-            currency = Currency.objects.get(pk=pk)
-            # serializer converts data to JSON tobe sent back to the client
-            serializer = CurrencySerializer(currency, context={'request': request})
-            return Response(serializer.data)
-        except Exception as ex:
-            return HttpResponseServerError(ex)
 
     def list(self, request):
         """Handle GET requests to get all currency

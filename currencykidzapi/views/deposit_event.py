@@ -6,7 +6,7 @@ from rest_framework.decorators import action
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
-from currencykidzapi.models import DepositEvent, Saver, Currency
+from currencykidzapi.models import DepositEvent, Saver, Currency, saver
 
 class DepositEventView(ViewSet):
 
@@ -95,7 +95,6 @@ class DepositEventView(ViewSet):
         Returns:
             Response -- JSON serialized list of deposit_events
         """
-        
         deposit_events = DepositEvent.objects.all()
 
         serializer = DepositEventSerializer(
@@ -106,10 +105,24 @@ class DepositEventView(ViewSet):
 # In these serializers we are specifying what we want to come back, the fields variable is where we are specifying what we
 # want included in the data that is coming back. Using depth you can access an entire object of an entire nested object.
 
+class DepositEventUserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email', 'username']
+
+class DepositEventSaverSerializer(serializers.ModelSerializer):
+    user = DepositEventUserSerializer(many=False)
+
+    class Meta:
+        model = Saver
+        fields = ['user', 'profile_image_url', 'goal_amount', 'created_on']
+
 class DepositEventSerializer(serializers.ModelSerializer):
-    """JSON serializer for withdrawal_events"""
+    """JSON serializer for deposit_events"""
+    saver = DepositEventSaverSerializer(many=False)
 
     class Meta:
         model = DepositEvent
-        fields = ('id', 'name', 'date', 'saver', 'currency', 'total', 'sound_effect')
+        fields = ('id', 'saver', 'name', 'date', 'saver', 'currency', 'total', 'sound_effect')
 
