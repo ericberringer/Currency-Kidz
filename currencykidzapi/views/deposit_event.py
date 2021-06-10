@@ -7,6 +7,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
 from currencykidzapi.models import DepositEvent, Saver, Currency
+from datetime import date
 
 class DepositEventView(ViewSet):
 
@@ -16,14 +17,15 @@ class DepositEventView(ViewSet):
         Returns:
             Response -- JSON serialized deposit_event instance
         """
+        saver = Saver.objects.get(request.auth.user)
+
         deposit_event = DepositEvent()
         deposit_event.name = request.data["name"]
         deposit_event.total = request.data["total"]
         deposit_event.date = request.data["date"]
         deposit_event.sound_effect = request.data["sound_effect"]
-
-        saver = Saver.objects.get(pk=request.data['saver'])
         deposit_event.saver = saver
+
 
         currency = Currency.objects.get(pk=request.data["currency"])
         deposit_event.currency = currency
@@ -36,14 +38,11 @@ class DepositEventView(ViewSet):
             return Response({"reason": ex.message}, status=status.HTTP_400_BAD_REQUEST)
 
     def retrieve(self, request, pk=None):
-        """Handle GET requests for single event
+        """Handle GET requests for single deposit_event """
 
-        Returns:
-            Response -- JSON serialized game instance
-        """
         try:
-            event = Event.objects.get(pk=pk)
-            serializer = EventSerializer(event, context={'request': request})
+            deposit_event = DepositEvent.objects.get(pk=pk)
+            serializer = DepositEventSerializer(deposit_event, context={'request': request})
             return Response(serializer.data)
         except Exception:
             return HttpResponseServerError(ex)
@@ -95,7 +94,6 @@ class DepositEventView(ViewSet):
         Returns:
             Response -- JSON serialized list of deposit_events
         """
-        
         deposit_events = DepositEvent.objects.all()
 
         serializer = DepositEventSerializer(
@@ -106,10 +104,26 @@ class DepositEventView(ViewSet):
 # In these serializers we are specifying what we want to come back, the fields variable is where we are specifying what we
 # want included in the data that is coming back. Using depth you can access an entire object of an entire nested object.
 
+class DepositEventUserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email', 'username']
+
+class DepositEventSaverSerializer(serializers.ModelSerializer):
+    user = DepositEventUserSerializer(many=False)
+
+    class Meta:
+        model = Saver
+        fields = ['user', 'profile_image_url', 'goal_amount', 'created_on']
+
 class DepositEventSerializer(serializers.ModelSerializer):
-    """JSON serializer for withdrawal_events"""
+    """JSON serializer for deposit_events"""
+    saver = DepositEventSaverSerializer(many=False)
 
     class Meta:
         model = DepositEvent
-        fields = ('id', 'name', 'date', 'saver', 'currency', 'total', 'sound_effect')
-
+        fields = ('id', 'saver', 'name', 'date', 'saver', 'currency', 'total', 'sound_effect')
+        depth = 1
+        # depth indicates the depth of relationships that should be traversed
+        # before reverting to a flat representation
