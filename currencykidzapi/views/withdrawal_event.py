@@ -16,14 +16,15 @@ class WithdrawalEventView(ViewSet):
         Returns:
             Response -- JSON serialized withdrawal_event instance
         """
+        saver = Saver.objects.get(user=request.auth.user)
+
         withdrawal_event = WithdrawalEvent()
         withdrawal_event.name = request.data["name"]
         withdrawal_event.total = request.data["total"]
         withdrawal_event.date = request.data["date"]
         withdrawal_event.sound_effect = request.data["sound_effect"]
-
-        saver = Saver.objects.get(pk=request.data['saver'])
         withdrawal_event.saver = saver
+
 
         currency = Currency.objects.get(pk=request.data["currency"])
         withdrawal_event.currency = currency
@@ -125,5 +126,6 @@ class WithdrawalEventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = WithdrawalEvent
-        fields = ('id', 'name', 'date', 'saver', 'currency', 'total', 'sound_effect')
+        fields = ('id', 'saver', 'name', 'date', 'currency', 'total', 'sound_effect')
+        depth = 1
 
