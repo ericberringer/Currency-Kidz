@@ -38,14 +38,10 @@ class WithdrawalEventView(ViewSet):
             return Response({"reason": ex.message}, status=status.HTTP_400_BAD_REQUEST)
 
     def retrieve(self, request, pk=None):
-        """Handle GET requests for single event
-
-        Returns:
-            Response -- JSON serialized game instance
-        """
+        """Handle GET requests for single withdrawal_event """
         try:
-            event = Event.objects.get(pk=pk)
-            serializer = EventSerializer(event, context={'request': request})
+            withdrawal_event = WithdrawalEvent.objects.get(pk=pk)
+            serializer = WithdrawalEventSerializer(withdrawal_event, context={'request': request})
             return Response(serializer.data)
         except Exception:
             return HttpResponseServerError(ex)
