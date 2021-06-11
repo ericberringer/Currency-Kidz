@@ -9,8 +9,8 @@ from currencykidzapi.views import CurrencyView, DepositEventView, WithdrawalEven
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'currency', CurrencyView, 'currency')
-router.register(r'deposit_event', DepositEventView, 'deposit_events')
-router.register(r'withdrawal_event', WithdrawalEventView, 'withdrawal_events')
+router.register(r'deposit_events', DepositEventView, 'deposit_events')
+router.register(r'withdrawal_events', WithdrawalEventView, 'withdrawal_events')
 router.register(r'profile', ProfileView, 'profile')
 
 
