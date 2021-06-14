@@ -10,5 +10,53 @@
             "total": 3.00,
             "sound_effect": []
         }
+    },
+    {
+        "model": "currencykidzapi.depositevent",
+        "pk": 2,
+        "fields": {
+            "date": "2021-6-12",
+            "name": "Deposit 2",
+            "saver": 1,
+            "currency": 1,
+            "total": 6.00,
+            "sound_effect": []
+        }
+    },
+    {
+        "model": "currencykidzapi.depositevent",
+        "pk": 3,
+        "fields": {
+            "date": "2021-6-15",
+            "name": "Deposit 3",
+            "saver": 1,
+            "currency": 1,
+            "total": 10.00,
+            "sound_effect": []
+        }
+    },
+    {
+        "model": "currencykidzapi.depositevent",
+        "pk": 4,
+        "fields": {
+            "date": "2021-6-20",
+            "name": "Deposit 4",
+            "saver": 1,
+            "currency": 1,
+            "total": 20.00,
+            "sound_effect": []
+        }
+    },
+    {
+        "model": "currencykidzapi.depositevent",
+        "pk": 5,
+        "fields": {
+            "date": "2021-6-29",
+            "name": "Deposit 5",
+            "saver": 1,
+            "currency": 1,
+            "total": 4.50,
+            "sound_effect": []
+        }
     }
 ]
