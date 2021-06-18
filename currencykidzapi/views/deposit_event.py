@@ -7,7 +7,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
 from currencykidzapi.models import DepositEvent, Saver, Currency
-from datetime import date
+from datetime import datetime
 
 class DepositEventView(ViewSet):
 
@@ -23,12 +23,23 @@ class DepositEventView(ViewSet):
         deposit_event = DepositEvent()
         deposit_event.name = request.data["name"]
         deposit_event.total = request.data["total"]
-        deposit_event.date = request.data["date"]
+        deposit_event.date = datetime.now()
         deposit_event.sound_effect = request.data["sound_effect"]
         deposit_event.saver = saver
 
 
-        currency = Currency.objects.get(pk=request.data["currency"])
+        currency = Currency()
+        currency.quarter = request.data["currencyCount"]["quarter"]
+        currency.penny = request.data["currencyCount"]["penny"]
+        currency.nickel = request.data["currencyCount"]["nickel"]
+        currency.dime = request.data["currencyCount"]["dime"]
+        currency.one_dollar = request.data["currencyCount"]["dollar"]
+        currency.five_dollars = request.data["currencyCount"]["five"]
+        currency.ten_dollars = request.data["currencyCount"]["ten"]
+        currency.twenty_dollars = request.data["currencyCount"]["twenty"]
+        currency.fifty_dollars = request.data["currencyCount"]["fifty"]
+        currency.one_hundred_dollars = request.data["currencyCount"]["hundred"]
+        currency.save()
         deposit_event.currency = currency
 
         try:
