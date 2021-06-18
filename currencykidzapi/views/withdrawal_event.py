@@ -7,6 +7,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
 from currencykidzapi.models import WithdrawalEvent, Saver, Currency, saver
+from datetime import datetime
 
 class WithdrawalEventView(ViewSet):
 
@@ -22,7 +23,7 @@ class WithdrawalEventView(ViewSet):
         withdrawal_event = WithdrawalEvent()
         withdrawal_event.name = request.data["name"]
         withdrawal_event.total = request.data["total"]
-        withdrawal_event.date = request.data["date"]
+        withdrawal_event.date = datetime.now()
         withdrawal_event.sound_effect = request.data["sound_effect"]
         withdrawal_event.saver = saver
 
