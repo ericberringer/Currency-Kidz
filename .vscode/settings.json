@@ -1,0 +1,11 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "currencykidz-server",
+            "database": "db.sqlite3"
+        }
+    ],
+    "python.pythonPath": "/Users/ericberringer/.local/share/virtualenvs/currency-kidz-YNCXPCA5/bin/python"
+}
