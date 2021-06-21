@@ -2,10 +2,10 @@ from django.db import models
 
 class Currency (models.Model):
 
-    quarter = models.DecimalField(max_digits=3, decimal_places=2)
-    dime = models.DecimalField(max_digits=3, decimal_places=2)
-    nickel = models.DecimalField(max_digits=3, decimal_places=2)
-    penny = models.DecimalField(max_digits=3, decimal_places=2)
+    quarter = models.IntegerField()
+    dime = models.IntegerField()
+    nickel = models.IntegerField()
+    penny = models.IntegerField()
     one_dollar = models.IntegerField()
     five_dollars = models.IntegerField()
     ten_dollars = models.IntegerField()
