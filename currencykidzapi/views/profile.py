@@ -11,6 +11,32 @@ from currencykidzapi.models import Saver, DepositEvent, WithdrawalEvent
 class ProfileView(ViewSet):
     """Saver can see profile information"""
 
+    def retrieve(self, request, pk=None):
+        """Handle GET requests for single profile """
+
+        try:
+            profile = Saver.objects.get(pk=pk)
+            serializer = SaverSerializer(profile, context={'request': request})
+            return Response(serializer.data)
+        except Exception:
+            return HttpResponseServerError(ex)
+
+    def update(self, request, pk=None):
+        """Handle PUT requests for a saver
+
+        Returns:
+            Response -- Empty body with 204 status code
+        """
+
+        saver = Saver.objects.get(user=request.auth.user)
+        saver.profile_image_url = request.data["profile_image_url"]
+        saver.goal_amount = request.data["goal_amount"]
+        saver.created_on = request.data["created_on"]
+
+        saver.save()
+
+        return Response({}, status=status.HTTP_204_NO_CONTENT)
+
     def list(self, request):
         """Handle GET requests to profile resource
 
@@ -52,7 +78,7 @@ class SaverSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Saver
-        fields = ('user', 'profile_image_url', 'created_on', 'goal_amount')
+        fields = ('id', 'user', 'profile_image_url', 'created_on', 'goal_amount')
 
 
 class DepositEventSerializer(serializers.ModelSerializer):
