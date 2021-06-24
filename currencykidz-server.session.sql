@@ -1,1 +1,1 @@
-select * from currencykidzapi_depositevent
+SELECT * FROM currencykidzapi_saver
