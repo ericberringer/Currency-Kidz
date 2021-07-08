@@ -58,7 +58,7 @@ def register_user(request):
     # Now save the extra info in the currencykidzapi_saver table
     saver = Saver.objects.create(
         profile_image_url=request.data['profile_image_url'],
-        goal_amount=request.data['goal_amount'],
+        # goal_amount=request.data['goal_amount'],
         created_on=datetime.now(),
         user=new_user
     )
