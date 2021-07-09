@@ -29,7 +29,7 @@ class ProfileView(ViewSet):
         """
 
         saver = Saver.objects.get(user=request.auth.user)
-        saver.profile_image_url = request.data["profile_image_url"]
+        # saver.profile_image_url = request.data["profile_image_url"]
         saver.goal_amount = request.data["goal_amount"]
         saver.created_on = request.data["created_on"]
 
